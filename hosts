@@ -43,6 +43,6 @@
 ## db-[99:101]-node.example.com
 
 [ops445]
-zzhang276	ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7850
+zzhang276 ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7850
 vmlab   ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7890
 myvm    ansible_host=myvmlab.senecapolytechnic.ca ansible_port=7654
