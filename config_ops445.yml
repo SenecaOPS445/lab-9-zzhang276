@@ -1,0 +1,52 @@
+---
+- name:  config_ops445.yml
+  hosts: vmlab
+  user: student
+  become: yes
+   
+  tasks:
+    - name: update Apache
+      yum:
+        name: httpd
+        state: latest
+    
+    - name: install EPEL packages repository 
+      yum:
+        name: epel-release
+        state: present
+    
+    - name: remove tree package
+      yum:
+        name: tree 
+        state: absent
+
+    - name: set hostname 
+      hostname:
+        name: nmonsef
+    
+    - name:  create a new user with sudo 
+      user: 
+        name: nmonsef
+        state: present
+        groups: wheel
+        append: yes
+    
+    - name: Create .ssh  for nmonsef
+      file:
+        path: /home/nmonsef/.ssh
+        state: directory
+        owner: nmonsef   
+    
+    - name: set authorized key
+      authorized_key:
+        user: nmonsef
+        state: present
+        key: "{{ lookup('file', '/home/niyayeshmonsef/.ssh/id_ed25519.pub') }}"
+
+    - name:  setup directory using a loop
+      file:
+        path: "/home/nmonsef/ops445/lab{{item}}"
+        state: directory
+        owner: nmonsef
+      loop: [1,2,3,4,5,6,7,8,9]
+    
